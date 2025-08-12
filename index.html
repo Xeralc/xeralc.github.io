@@ -1,153 +1,224 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andrew's Cool Page</title>
+    <title>My Cool Page</title>
     <style>
-        #gameContainer {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        canvas {
-            border: 2px solid #333;
-            background-color: black;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background: #66a6ff;
+        }
+
+        /* Navbar */
+        nav {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffd166;
+        }
+
+        /* Fullscreen Hero Section */
+        .hero {
+            height: calc(100vh - 60px); /* minus navbar height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Card */
+        .container {
+            background: white;
+            padding: 1.5rem; /* reduced from 2rem */
+            border-radius: 1rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            max-width: 550px; /* slightly narrower */
+            width: 90%;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .container h2 {
+            font-size: 1.6rem; /* smaller heading */
+            margin-bottom: 0.3rem;
+        }
+
+        .container p {
+            font-size: 1rem; /* slightly smaller */
+            margin-bottom: 1rem;
+        }
+
+        .container img {
+            max-width: 250px; /* smaller gif */
+            height: auto;
+            margin: 0.8rem 0;
+            border-radius: 0.5rem;
+        }
+
+
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background-color: #66a6ff;
+            color: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #4a8de0;
+        }
+
+        footer {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        /* Second Section */
+        .section {
+            background: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Wave Background */
+        .waves {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20vh;
+            z-index: 1;
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background-repeat: repeat no-repeat;
+            background-size: 50% 100%;
+            opacity: 0.4;
+            animation: waveAnim 10s linear infinite;
+        }
+
+        .wave1 {
+            background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.5) 20%, transparent 21%);
+            background-size: 50px 50px;
+            animation-duration: 12s;
+        }
+
+        .wave2 {
+            background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 20%, transparent 21%);
+            background-size: 50px 50px;
+            animation-duration: 8s;
+        }
+
+        @keyframes waveAnim {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-25%); }
         }
     </style>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script></head>
-<body style="margin: 0; padding: 0;">
-    <div class="header-container">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <a class="navbar-brand" style="margin-right: 5rem;" href="#">Andrew</a>
-              </div>
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Rice</a></li>
-                <li><a href="#">Pasta</a></li>
-                <li><a href="#">Udon</a></li>
-              </ul>
-            </div>
-          </nav>
-    </div>
-    <div class="main-container" 
-        style="margin-left: 25rem; margin-right: 25rem; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
-        <h1 style="text-align: center;">Hello World!</h1>
-        <hr>
-        <p style="text-align: center; font-size: large;">🎉 Welcome to my GitHub Pages site 🎉</p>
-        <div style="text-align: center; margin-top: 20px; width: 100%; height: 25px;">
-            <button id="toggleGameBtn">Play Snake!</button>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <h1>🌊 My Cool Page</h1>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Fullscreen Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Hello, World! 👋</h2>
+            <p>🎉 Welcome to my GitHub Pages site 🎉</p>
+            <img src="https://gifdb.com/images/high/spinning-fish-hi-sharky-meme-kgo2dtteiu57xucu.gif" alt="Spinning Fish Meme">
+            <footer>By Andrew~</footer>
         </div>
-        <div id="gameContainer">
-            <canvas id="gc" width="400" height="400"></canvas>
-        </div>
-        <hr>
-    <script>
-        let gameVisible = false;
-        let gameLoop = null; // Store interval ID
+    </section>
 
-        const toggleBtn = document.getElementById("toggleGameBtn");
-        const gameContainer = document.getElementById("gameContainer");
+    <!-- Fun Shark Trivia Section -->
+    <section class="section">
+        <h3>🦈 Fun Shark Trivia</h3>
+        <p>
+            Did you know that sharks have been around for more than 400 million years —
+            that’s older than trees! 🌳 Some species, like the Greenland shark, can live for over 400 years,
+            making them the longest-living vertebrates on Earth.  
+            And despite their fierce reputation, most sharks are harmless to humans and help
+            keep our ocean ecosystems balanced. So next time you think of a shark, remember:
+            they’re more ancient than dinosaurs, and they’re the ocean’s cleanup crew!
+        </p>
+    </section>
 
-        toggleBtn.addEventListener("click", function () {
-            if (gameVisible) {
-                closeGame();
-            } else {
-                startGame();
-            }
-        });
-
-        function startGame() {
-            gameContainer.style.display = "block";
-            toggleBtn.textContent = "❌ Close Snake";
-            gameVisible = true;
-
-            // Disable scrolling for arrow keys
-            window.addEventListener("keydown", disableScrollKeys);
-
-            let canv = document.getElementById("gc");
-            let ctx = canv.getContext("2d");
-
-            let px = 10, py = 10;
-            let gs = 20, tc = 20;
-            let ax = 15, ay = 15;
-            let xv = 0, yv = 0;
-            let trail = [];
-            let tail = 5;
-
-            document.addEventListener("keydown", keyPush);
-
-            gameLoop = setInterval(game, 1000 / 15);
-
-            function game() {
-                px += xv;
-                py += yv;
-                if (px < 0) px = tc - 1;
-                if (px > tc - 1) px = 0;
-                if (py < 0) py = tc - 1;
-                if (py > tc - 1) py = 0;
-
-                ctx.fillStyle = "black";
-                ctx.fillRect(0, 0, canv.width, canv.height);
-
-                ctx.fillStyle = "lime";
-                for (let i = 0; i < trail.length; i++) {
-                    ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 2, gs - 2);
-                    if (trail[i].x === px && trail[i].y === py) {
-                        tail = 5;
-                    }
-                }
-                trail.push({ x: px, y: py });
-                while (trail.length > tail) {
-                    trail.shift();
-                }
-
-                if (ax === px && ay === py) {
-                    tail++;
-                    ax = Math.floor(Math.random() * tc);
-                    ay = Math.floor(Math.random() * tc);
-                }
-                ctx.fillStyle = "red";
-                ctx.fillRect(ax * gs, ay * gs, gs - 2, gs - 2);
-            }
-
-            function keyPush(evt) {
-                switch (evt.keyCode) {
-                    case 37: xv = -1; yv = 0; break;
-                    case 38: xv = 0; yv = -1; break;
-                    case 39: xv = 1; yv = 0; break;
-                    case 40: xv = 0; yv = 1; break;
-                }
-            }
-        }
-
-        function closeGame() {
-            gameContainer.style.display = "none";
-            toggleBtn.textContent = "🎮 Play Snake";
-            gameVisible = false;
-
-            // Stop game loop
-            clearInterval(gameLoop);
-            gameLoop = null;
-
-            // Re-enable scrolling
-            window.removeEventListener("keydown", disableScrollKeys);
-        }
-
-        function disableScrollKeys(e) {
-            // Prevent default action for arrow keys
-            if ([37, 38, 39, 40].includes(e.keyCode)) {
-                e.preventDefault();
-            }
-        }
-    </script>
-    </div>
-    <div class="footer-container" style="text-align: center; margin-top: 20px;">
-        <marquee behavior="scroll" direction="left">Made with ❤️ by Andrew</marquee>
+    <!-- Animated Wave Background -->
+    <div class="waves">
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
     </div>
 </body>
 </html>
