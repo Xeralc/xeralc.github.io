@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Cool Page</title>
+    <title>Andrew's Cool Page</title>
     <style>
         #gameContainer {
-            display: none; /* Hidden by default */
+            display: none;
             text-align: center;
             margin-top: 20px;
         }
@@ -15,15 +15,30 @@
             background-color: black;
         }
     </style>
-</head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script></head>
 <body style="margin: 0; padding: 0;">
+    <div class="header-container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" style="margin-right: 5rem;" href="#">Andrew</a>
+              </div>
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Rice</a></li>
+                <li><a href="#">Pasta</a></li>
+                <li><a href="#">Udon</a></li>
+              </ul>
+            </div>
+          </nav>
+    </div>
     <div class="main-container" 
         style="margin-left: 25rem; margin-right: 25rem; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
         <h1 style="text-align: center;">Hello World!</h1>
         <hr>
         <p style="text-align: center; font-size: large;">🎉 Welcome to my GitHub Pages site 🎉</p>
-        <img src="https://gifdb.com/images/high/spinning-fish-hi-sharky-meme-kgo2dtteiu57xucu.gif"
-             style="margin-left: auto; margin-right: auto; display: block;">
         <div style="text-align: center; margin-top: 20px; width: 100%; height: 25px;">
             <button id="toggleGameBtn">Play Snake!</button>
         </div>
@@ -31,8 +46,6 @@
             <canvas id="gc" width="400" height="400"></canvas>
         </div>
         <hr>
-        <marquee behavior="scroll" direction="left">By Andrew~</marquee>
-    </div>
     <script>
         let gameVisible = false;
         let gameLoop = null; // Store interval ID
@@ -132,5 +145,9 @@
             }
         }
     </script>
+    </div>
+    <div class="footer-container" style="text-align: center; margin-top: 20px;">
+        <marquee behavior="scroll" direction="left">Made with ❤️ by Andrew</marquee>
+    </div>
 </body>
 </html>
