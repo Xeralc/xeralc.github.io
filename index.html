@@ -4,21 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Cool Page</title>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        #gameContainer {
+            display: none; /* Hidden by default */
+            text-align: center;
+            margin-top: 20px;
+        }
+        canvas {
+            border: 2px solid #333;
+            background-color: black;
+        }
+    </style>
 </head>
 <body style="margin: 0; padding: 0;">
-    <div
-    class="main-container" 
-    style="margin-left: 25rem; margin-right: 25rem; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+    <div class="main-container" 
+        style="margin-left: 25rem; margin-right: 25rem; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
         <h1 style="text-align: center;">Hello World!</h1>
         <hr>
         <p style="text-align: center; font-size: large;">🎉 Welcome to my GitHub Pages site 🎉</p>
-        <img 
-            src="https://gifdb.com/images/high/spinning-fish-hi-sharky-meme-kgo2dtteiu57xucu.gif"
-            style="margin-left: auto; margin-right: auto; display: block;"
-            >
+        <img src="https://gifdb.com/images/high/spinning-fish-hi-sharky-meme-kgo2dtteiu57xucu.gif"
+             style="margin-left: auto; margin-right: auto; display: block;">
+        <div style="text-align: center; margin-top: 20px; width: 100%; height: 25px;">
+            <button id="toggleGameBtn">Play Snake!</button>
+        </div>
+        <div id="gameContainer">
+            <canvas id="gc" width="400" height="400"></canvas>
+        </div>
         <hr>
         <marquee behavior="scroll" direction="left">By Andrew~</marquee>
     </div>
+    <script>
+        let gameVisible = false;
+        let gameLoop = null; // Store interval ID
+
+        const toggleBtn = document.getElementById("toggleGameBtn");
+        const gameContainer = document.getElementById("gameContainer");
+
+        toggleBtn.addEventListener("click", function () {
+            if (gameVisible) {
+                closeGame();
+            } else {
+                startGame();
+            }
+        });
+
+        function startGame() {
+            gameContainer.style.display = "block";
+            toggleBtn.textContent = "❌ Close Snake";
+            gameVisible = true;
+
+            // Disable scrolling for arrow keys
+            window.addEventListener("keydown", disableScrollKeys);
+
+            let canv = document.getElementById("gc");
+            let ctx = canv.getContext("2d");
+
+            let px = 10, py = 10;
+            let gs = 20, tc = 20;
+            let ax = 15, ay = 15;
+            let xv = 0, yv = 0;
+            let trail = [];
+            let tail = 5;
+
+            document.addEventListener("keydown", keyPush);
+
+            gameLoop = setInterval(game, 1000 / 15);
+
+            function game() {
+                px += xv;
+                py += yv;
+                if (px < 0) px = tc - 1;
+                if (px > tc - 1) px = 0;
+                if (py < 0) py = tc - 1;
+                if (py > tc - 1) py = 0;
+
+                ctx.fillStyle = "black";
+                ctx.fillRect(0, 0, canv.width, canv.height);
+
+                ctx.fillStyle = "lime";
+                for (let i = 0; i < trail.length; i++) {
+                    ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 2, gs - 2);
+                    if (trail[i].x === px && trail[i].y === py) {
+                        tail = 5;
+                    }
+                }
+                trail.push({ x: px, y: py });
+                while (trail.length > tail) {
+                    trail.shift();
+                }
+
+                if (ax === px && ay === py) {
+                    tail++;
+                    ax = Math.floor(Math.random() * tc);
+                    ay = Math.floor(Math.random() * tc);
+                }
+                ctx.fillStyle = "red";
+                ctx.fillRect(ax * gs, ay * gs, gs - 2, gs - 2);
+            }
+
+            function keyPush(evt) {
+                switch (evt.keyCode) {
+                    case 37: xv = -1; yv = 0; break;
+                    case 38: xv = 0; yv = -1; break;
+                    case 39: xv = 1; yv = 0; break;
+                    case 40: xv = 0; yv = 1; break;
+                }
+            }
+        }
+
+        function closeGame() {
+            gameContainer.style.display = "none";
+            toggleBtn.textContent = "🎮 Play Snake";
+            gameVisible = false;
+
+            // Stop game loop
+            clearInterval(gameLoop);
+            gameLoop = null;
+
+            // Re-enable scrolling
+            window.removeEventListener("keydown", disableScrollKeys);
+        }
+
+        function disableScrollKeys(e) {
+            // Prevent default action for arrow keys
+            if ([37, 38, 39, 40].includes(e.keyCode)) {
+                e.preventDefault();
+            }
+        }
+    </script>
 </body>
 </html>
